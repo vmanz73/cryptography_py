@@ -92,16 +92,3 @@ def decryptMessage(cipher,key):
 		return msg[: -null_count] 
 
 	return msg 
-
-# Driver Code 
-key = "HACK"
-msg = "Geeks for Geeks"
-
-cipher = encryptMessage(msg,key) 
-print("Encrypted Message: {}". 
-			format(cipher)) 
-
-print("Decryped Message: {}". 
-	format(decryptMessage(cipher,key))) 
-
-# This code is contributed by Aditya K 

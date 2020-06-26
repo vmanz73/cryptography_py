@@ -7,6 +7,10 @@
 # WARNING! All changes made in this file will be lost!
 
 from PyQt5 import QtCore, QtGui, QtWidgets
+import vigenere as vig
+import cesar as cs
+import columnar as cl
+import hashlib 
 
 
 class Ui_MainWindow(object):
@@ -94,6 +98,71 @@ class Ui_MainWindow(object):
 
         self.retranslateUi(MainWindow)
         QtCore.QMetaObject.connectSlotsByName(MainWindow)
+
+        self.btnProses.clicked.connect(self.proses)
+        self.rdCaesar.toggled.connect(self.radio)
+        self.rdColumn.toggled.connect(self.radio)
+        self.rdMD5.toggled.connect(self.radio)
+        self.rdVigenere.toggled.connect(self.radio)
+        self.btnClear.clicked.connect(self.clear)
+    
+    def radio(self):
+        if self.rdVigenere.isChecked():
+            self.spinKey.setEnabled(False)
+            self.txtKey.setEnabled(True)
+            self.txtChiper.setEnabled(True)
+        if self.rdCaesar.isChecked():
+            self.spinKey.setEnabled(True)
+            self.txtKey.setEnabled(False)
+            self.txtChiper.setEnabled(True)
+        if self.rdColumn.isChecked():
+            self.spinKey.setEnabled(False)
+            self.txtKey.setEnabled(True)
+            self.txtChiper.setEnabled(True)
+        if self.rdMD5.isChecked():
+            self.spinKey.setEnabled(False)
+            self.txtKey.setEnabled(False)
+            self.txtChiper.setText("")
+            self.txtChiper.setEnabled(False)
+
+    def clear(self):
+        self.txtChiper.setText("")
+        self.txtKey.setText("")
+        self.txtPlain.setText("")
+        self.spinKey.setValue(0)
+                
+    def proses(self):
+        if self.txtChiper.text() == "":
+            if self.rdVigenere.isChecked():
+                key = vig.generateKey(self.txtPlain.text(),self.txtKey.text())
+                chiper = vig.cipherText(self.txtPlain.text(),key)
+                self.txtChiper.setText(chiper)
+                print(key)
+            if self.rdCaesar.isChecked():
+                self.txtChiper.setText(cs.encrypt(int(self.spinKey.text()),self.txtPlain.text()))
+            if self.rdColumn.isChecked():
+                self.txtChiper.setText(cl.encryptMessage(self.txtPlain.text(),self.txtKey.text()))
+            if self.rdMD5.isChecked():
+                byt = bytes(self.txtPlain.text(), 'utf-8')
+                md = hashlib.md5(byt).hexdigest()
+                self.txtChiper.setText(md)
+                self.txtChiper.setEnabled(True)
+
+        elif self.txtPlain.text() == "":
+            if self.rdVigenere.isChecked():
+                key = vig.generateKey(self.txtChiper.text(),self.txtKey.text())
+                plain = vig.originalText(self.txtChiper.text(),key)
+                self.txtPlain.setText(plain)
+                print(key)
+            if self.rdCaesar.isChecked():
+                self.txtPlain.setText(cs.decrypt(int(self.spinKey.text()),self.txtChiper.text()))
+            if self.rdColumn.isChecked():
+                self.txtPlain.setText(cl.decryptMessage(self.txtChiper.text(),self.txtKey.text()))
+            
+
+    def tes(self):
+        self.txtKey.setText(self.spinKey.text())
+        self.spinKey.setValue(0)
 
     def retranslateUi(self, MainWindow):
         _translate = QtCore.QCoreApplication.translate

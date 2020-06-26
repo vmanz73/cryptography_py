@@ -39,15 +39,3 @@ def originalText(cipher_text, key):
 		orig_text.append(chr(x)) 
 	return("" . join(orig_text)) 
 	
-# Driver code 
-#if __name__ == "__main__": 
-#	string = "GEEKSFORGEEKS"
-#	keyword = "AYUSH"
-#	key = generateKey(string, keyword) 
-#	cipher_text = cipherText(string,key) 
-#	print("Ciphertext :", cipher_text) 
-#	print("Original/Decrypted Text :", 
-#		originalText(cipher_text, key)) 
-
-# This code is contributed 
-# by Pratik Somwanshi 

@@ -27,12 +27,3 @@ def decrypt(n, ciphertext):
             result += l
 
     return result
-
-text = "attackatonce"
-offset = 4
-
-encrypted = encrypt(offset, text)
-print('Encrypted:', encrypted)
-
-decrypted = decrypt(offset, encrypted)
-print('Decrypted:', decrypted)
