@@ -2,10 +2,10 @@
 # Columnar Transposition 
 import math 
 
-key = "HACK"
+
 
 # Encryption 
-def encryptMessage(msg): 
+def encryptMessage(msg,key): 
 	cipher = "" 
 
 	# track key indices 
@@ -41,7 +41,7 @@ def encryptMessage(msg):
 	return cipher 
 
 # Decryption 
-def decryptMessage(cipher): 
+def decryptMessage(cipher,key): 
 	msg = "" 
 
 	# track key indices 
@@ -94,13 +94,14 @@ def decryptMessage(cipher):
 	return msg 
 
 # Driver Code 
+key = "HACK"
 msg = "Geeks for Geeks"
 
-cipher = encryptMessage(msg) 
+cipher = encryptMessage(msg,key) 
 print("Encrypted Message: {}". 
 			format(cipher)) 
 
 print("Decryped Message: {}". 
-	format(decryptMessage(cipher))) 
+	format(decryptMessage(cipher,key))) 
 
 # This code is contributed by Aditya K 
