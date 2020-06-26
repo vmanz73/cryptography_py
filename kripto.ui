@@ -82,9 +82,9 @@
      <property name="geometry">
       <rect>
        <x>440</x>
-       <y>60</y>
-       <width>70</width>
-       <height>17</height>
+       <y>30</y>
+       <width>131</width>
+       <height>131</height>
       </rect>
      </property>
      <property name="frameShape">

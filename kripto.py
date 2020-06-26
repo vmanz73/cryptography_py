@@ -7,10 +7,6 @@
 # WARNING! All changes made in this file will be lost!
 
 from PyQt5 import QtCore, QtGui, QtWidgets
-import vigenere as vig
-import cesar as cs
-import columnar as cl
-import hashlib 
 
 
 class Ui_MainWindow(object):
@@ -36,9 +32,7 @@ class Ui_MainWindow(object):
         self.label_2.setObjectName("label_2")
         self.label_5 = QtWidgets.QLabel(self.groupBox)
         self.label_5.setGeometry(QtCore.QRect(440, 30, 131, 131))
-        self.label_5.setText("")
         self.label_5.setFrameShape(QtWidgets.QFrame.NoFrame)
-        self.label_5.setPixmap(QtGui.QPixmap("mydata/Trii.jpg"))
         self.label_5.setObjectName("label_5")
         self.label_6 = QtWidgets.QLabel(self.groupBox)
         self.label_6.setGeometry(QtCore.QRect(20, 110, 171, 17))
@@ -101,71 +95,6 @@ class Ui_MainWindow(object):
         self.retranslateUi(MainWindow)
         QtCore.QMetaObject.connectSlotsByName(MainWindow)
 
-        self.btnProses.clicked.connect(self.proses)
-        self.rdCaesar.toggled.connect(self.radio)
-        self.rdColumn.toggled.connect(self.radio)
-        self.rdMD5.toggled.connect(self.radio)
-        self.rdVigenere.toggled.connect(self.radio)
-        self.btnClear.clicked.connect(self.clear)
-    
-    def radio(self):
-        if self.rdVigenere.isChecked():
-            self.spinKey.setEnabled(False)
-            self.txtKey.setEnabled(True)
-            self.txtChiper.setEnabled(True)
-        if self.rdCaesar.isChecked():
-            self.spinKey.setEnabled(True)
-            self.txtKey.setEnabled(False)
-            self.txtChiper.setEnabled(True)
-        if self.rdColumn.isChecked():
-            self.spinKey.setEnabled(False)
-            self.txtKey.setEnabled(True)
-            self.txtChiper.setEnabled(True)
-        if self.rdMD5.isChecked():
-            self.spinKey.setEnabled(False)
-            self.txtKey.setEnabled(False)
-            self.txtChiper.setText("")
-            self.txtChiper.setEnabled(False)
-
-    def clear(self):
-        self.txtChiper.setText("")
-        self.txtKey.setText("")
-        self.txtPlain.setText("")
-        self.spinKey.setValue(0)
-                
-    def proses(self):
-        if self.txtChiper.text() == "":
-            if self.rdVigenere.isChecked():
-                key = vig.generateKey(self.txtPlain.text(),self.txtKey.text())
-                chiper = vig.cipherText(self.txtPlain.text(),key)
-                self.txtChiper.setText(chiper)
-                print(key)
-            if self.rdCaesar.isChecked():
-                self.txtChiper.setText(cs.encrypt(int(self.spinKey.text()),self.txtPlain.text()))
-            if self.rdColumn.isChecked():
-                self.txtChiper.setText(cl.encryptMessage(self.txtPlain.text(),self.txtKey.text()))
-            if self.rdMD5.isChecked():
-                byt = bytes(self.txtPlain.text(), 'utf-8')
-                md = hashlib.md5(byt).hexdigest()
-                self.txtChiper.setText(md)
-                self.txtChiper.setEnabled(True)
-
-        elif self.txtPlain.text() == "":
-            if self.rdVigenere.isChecked():
-                key = vig.generateKey(self.txtChiper.text(),self.txtKey.text())
-                plain = vig.originalText(self.txtChiper.text(),key)
-                self.txtPlain.setText(plain)
-                print(key)
-            if self.rdCaesar.isChecked():
-                self.txtPlain.setText(cs.decrypt(int(self.spinKey.text()),self.txtChiper.text()))
-            if self.rdColumn.isChecked():
-                self.txtPlain.setText(cl.decryptMessage(self.txtChiper.text(),self.txtKey.text()))
-            
-
-    def tes(self):
-        self.txtKey.setText(self.spinKey.text())
-        self.spinKey.setValue(0)
-
     def retranslateUi(self, MainWindow):
         _translate = QtCore.QCoreApplication.translate
         MainWindow.setWindowTitle(_translate("MainWindow", "MainWindow"))
@@ -174,7 +103,7 @@ class Ui_MainWindow(object):
         self.label.setText(_translate("MainWindow", "Nama :"))
         self.label_3.setText(_translate("MainWindow", "Tri Apriyanti"))
         self.label_2.setText(_translate("MainWindow", "Nim    :"))
-        self.label_5.setText(_translate("MainWindow", ""))
+        self.label_5.setText(_translate("MainWindow", "Foto"))
         self.label_6.setText(_translate("MainWindow", "Keamanan Komputer"))
         self.groupBox_2.setTitle(_translate("MainWindow", "Kriptografi"))
         self.rdVigenere.setText(_translate("MainWindow", "Vigenere"))
