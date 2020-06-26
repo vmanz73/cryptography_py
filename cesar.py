@@ -1,24 +1,38 @@
+# encrypt and decrypt a text using a simple algorithm of offsetting the letters
 
-def encrypt(text,s): 
-	result = "" 
+key = 'abcdefghijklmnopqrstuvwxyz'
 
-	# traverse text 
-	for i in range(len(text)): 
-		char = text[i] 
+def encrypt(n, plaintext):
+    """Encrypt the string and return the ciphertext"""
+    result = ''
 
-		# Encrypt uppercase characters 
-		if (char.isupper()): 
-			result += chr((ord(char) + s-65) % 26 + 65) 
+    for l in plaintext.lower():
+        try:
+            i = (key.index(l) + n) % 26
+            result += key[i]
+        except ValueError:
+            result += l
 
-		# Encrypt lowercase characters 
-		else: 
-			result += chr((ord(char) + s - 97) % 26 + 97) 
+    return result.lower()
 
-	return result 
+def decrypt(n, ciphertext):
+    """Decrypt the string and return the plaintext"""
+    result = ''
 
-#check the above function 
-text = "ATTACKATONCE"
-s = 4
-print ("Text : " + text) 
-print ("Shift : " + str(s)) 
-print ("Cipher: " + encrypt(text,s)) 
+    for l in ciphertext:
+        try:
+            i = (key.index(l) - n) % 26
+            result += key[i]
+        except ValueError:
+            result += l
+
+    return result
+
+text = "attackatonce"
+offset = 4
+
+encrypted = encrypt(offset, text)
+print('Encrypted:', encrypted)
+
+decrypted = decrypt(offset, encrypted)
+print('Decrypted:', decrypted)
